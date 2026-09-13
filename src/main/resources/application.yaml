@@ -1,3 +1,19 @@
 spring:
   application:
     name: medicenter
+
+  datasource:
+    url: jdbc:sqlserver://DESKTOP-NFS1S87\SQLEXPRESS:1433;databaseName=MedicenterDB;encrypt=true;trustServerCertificate=true
+    username: sa
+    password: 123456789
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.SQLServerDialect
