@@ -7,5 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface CitaRepository extends JpaRepository<Cita, Integer> {
+
     List<Cita> findByMedicoIdAndFechaCitaAndEstadoNot(Integer medicoId, LocalDate fechaCita, String estado);
+    List<Cita> findByPacienteId(Integer pacienteId);
 }

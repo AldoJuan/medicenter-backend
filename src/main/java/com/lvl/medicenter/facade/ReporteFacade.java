@@ -9,6 +9,7 @@ import com.lvl.medicenter.repository.projection.AtencionesPorMedicoProjection;
 import com.lvl.medicenter.repository.projection.CierreCajaProjection;
 import com.lvl.medicenter.repository.projection.VentasPorComprobanteProjection;
 import com.lvl.medicenter.service.ReporteService;
+import com.lvl.medicenter.util.ExcelUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -44,6 +45,35 @@ public class ReporteFacade {
         LocalDateTime inicio = desde.atStartOfDay();
         LocalDateTime fin = hasta.plusDays(1).atStartOfDay();
         return reporteService.cierreCaja(inicio, fin).stream().map(this::toResponse).toList();
+    }
+
+
+    public byte[] exportarAtencionesPorMedicoExcel() {
+        List<AtencionesPorMedicoResponse> datos = atencionesPorMedico();
+        return ExcelUtil.generar(
+                "Atenciones por Medico",
+                new String[]{"Medico ID", "Nombre del Medico", "Cantidad de Atenciones"},
+                datos,
+                (fila, item) -> {
+                    fila.createCell(0).setCellValue(item.getMedicoId());
+                    fila.createCell(1).setCellValue(item.getNombreMedico());
+                    fila.createCell(2).setCellValue(item.getCantidadAtenciones());
+                }
+        );
+    }
+
+    public byte[] exportarVentasPorComprobanteExcel(LocalDate desde, LocalDate hasta) {
+        List<VentasPorComprobanteResponse> datos = ventasPorComprobante(desde, hasta);
+        return ExcelUtil.generar(
+                "Ventas por Comprobante",
+                new String[]{"Tipo de Comprobante", "Cantidad", "Monto Total"},
+                datos,
+                (fila, item) -> {
+                    fila.createCell(0).setCellValue(item.getTipoComprobante());
+                    fila.createCell(1).setCellValue(item.getCantidad());
+                    fila.createCell(2).setCellValue(item.getMontoTotal().doubleValue());
+                }
+        );
     }
 
     private AtencionesPorMedicoResponse toResponse(AtencionesPorMedicoProjection p) {

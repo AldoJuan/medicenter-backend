@@ -4,8 +4,8 @@ spring:
 
   datasource:
     url: jdbc:sqlserver://DESKTOP-NFS1S87\SQLEXPRESS:1433;databaseName=MedicenterDB;encrypt=true;trustServerCertificate=true
-    username: sa
-    password: 123456789
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
 

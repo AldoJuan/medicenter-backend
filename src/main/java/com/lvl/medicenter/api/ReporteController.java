@@ -7,6 +7,9 @@ import com.lvl.medicenter.dto.reporte.VentasPorComprobanteResponse;
 import com.lvl.medicenter.facade.ReporteFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -46,5 +49,25 @@ public class ReporteController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
         return reporteFacade.cierreCaja(desde, hasta);
+    }
+
+    @GetMapping("/atenciones-por-medico/excel")
+    public ResponseEntity<byte[]> exportarAtencionesPorMedicoExcel() {
+        byte[] excel = reporteFacade.exportarAtencionesPorMedicoExcel();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=atenciones_por_medico.xlsx")
+                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                .body(excel);
+    }
+
+    @GetMapping("/ventas-por-comprobante/excel")
+    public ResponseEntity<byte[]> exportarVentasPorComprobanteExcel(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
+        byte[] excel = reporteFacade.exportarVentasPorComprobanteExcel(desde, hasta);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=ventas_por_comprobante.xlsx")
+                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                .body(excel);
     }
 }

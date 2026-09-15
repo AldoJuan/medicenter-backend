@@ -9,11 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// Nota: estos endpoints asumen que el frontend ya sabe el pacienteId
-// del usuario logueado (vendría del token en un login real). Sin
-// autenticación implementada todavía, cualquiera podría pedir el
-// pacienteId de otro — es una limitación conocida a documentar en
-// el resumen técnico, no un descuido.
 @RestController
 @RequestMapping("/pacientes/{pacienteId}")
 @RequiredArgsConstructor
