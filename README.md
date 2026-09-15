@@ -88,4 +88,4 @@ Usuario, Rol, RolUsuario, Especialidad, Medicamento, Medico, Paciente, HorarioMe
 
 ## 8. Autor
 
-Aldo — evaluación técnica para transición de perfil Analista Funcional → Desarrollador Backend, LVL Consulting S.A.C.
+Aldo — evaluación técnica para Desarrollador Backend, LVL Consulting S.A.C.
