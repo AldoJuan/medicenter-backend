@@ -1,0 +1,13 @@
+package com.lvl.medicenter.dto.cuota;
+
+import lombok.Data;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@Data
+public class CuotaRequest {
+    private Integer facturaId;
+    private Integer numeroCuota;
+    private BigDecimal monto;
+    private LocalDate fechaVencimiento;
+}
